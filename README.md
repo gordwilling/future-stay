@@ -1,5 +1,14 @@
 # Sample Spring Boot App
 
+## Running to Application
+
+### Bash
+`
+./gradlew bootJar
+chmod u+x build/libs/FutureStay-0.0.1-SNAPSHOT.jar
+./build/libs/FutureStay-0.0.1-SNAPSHOT.jar 
+`
+
 ## Endpoints of Interest
 
 ### GET /api/swagger-ui/index.html
