@@ -79,7 +79,7 @@ class BookingsRestControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.statusCode());
         assertEquals("""
                 {
-                  "error" : "missing or unexpected value in request body"
+                  "messages" : [ "missing or unexpected value in request body" ]
                 }
                 """.trim(), response.body());
     }
@@ -116,18 +116,18 @@ class BookingsRestControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.statusCode());
 
         var errorJson = response.body();
-        var errorMap = objectMapper.readValue(errorJson, new TypeReference<Map<String, List<String>>>() {});
+        var errors = objectMapper.readValue(errorJson, ApiErrors.class);
 
-        var errors = errorMap.get("Errors");
+        var messages = errors.messages();
 
         // all seven fields should have a validation error, given the request payload
-        assertEquals(7, errors.size());
-        assertTrue(errors.contains("property.address: missing value"));
-        assertTrue(errors.contains("property.city: missing value"));
-        assertTrue(errors.contains("property.state: expected 2-letter state abbreviation"));
-        assertTrue(errors.contains("property.zipCode: invalid zip code"));
-        assertTrue(errors.contains("guest.emailAddress: invalid email address"));
-        assertTrue(errors.contains("checkIn: must be a date in the future"));
-        assertTrue(errors.contains("checkOut: must be after the checkIn date"));
+        assertEquals(7, messages.size());
+        assertTrue(messages.contains("property.address: missing value"));
+        assertTrue(messages.contains("property.city: missing value"));
+        assertTrue(messages.contains("property.state: expected 2-letter state abbreviation"));
+        assertTrue(messages.contains("property.zipCode: invalid zip code"));
+        assertTrue(messages.contains("guest.emailAddress: invalid email address"));
+        assertTrue(messages.contains("checkIn: must be a date in the future"));
+        assertTrue(messages.contains("checkOut: must be after the checkIn date"));
     }
 }

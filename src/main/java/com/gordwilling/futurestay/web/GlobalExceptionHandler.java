@@ -36,18 +36,15 @@ public class GlobalExceptionHandler {
      * @return a map containing the list of validation errors
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, List<String>>> handle(MethodArgumentNotValidException e, Locale locale) {
+    public ResponseEntity<ApiErrors> handle(MethodArgumentNotValidException e, Locale locale) {
         log.info(e.getMessage());
-        var errors = e.getBindingResult()
+        var messages = e.getBindingResult()
                 .getFieldErrors()
                 .stream()
                 .map(error -> format("%s: %s", error.getField(), error.getDefaultMessage()))
                 .toList();
 
-        String nameOfErrorsList = lion.of("global.exception.handler.bind.exception.errors", locale);
-
-        var errorsMap = Map.of(nameOfErrorsList, errors);
-        return new ResponseEntity<>(errorsMap, BAD_REQUEST);
+        return new ResponseEntity<>(new ApiErrors(messages), BAD_REQUEST);
     }
 
     /**
@@ -57,9 +54,9 @@ public class GlobalExceptionHandler {
      * @return a generic error message, as there isn't much detail provided by the framework
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> handle(HttpMessageNotReadableException e, Locale locale) {
+    public ResponseEntity<ApiErrors> handle(HttpMessageNotReadableException e, Locale locale) {
         log.info(e.getMessage());
         String message = lion.of("validation.error.invalid.request.body", locale);
-        return new ResponseEntity<>(new ApiError(message), BAD_REQUEST);
+        return new ResponseEntity<>(new ApiErrors(List.of(message)), BAD_REQUEST);
     }
 }

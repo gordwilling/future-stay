@@ -33,15 +33,18 @@ public class BookingsRestController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Successfully booked the property",
+                    description = "True if the property could be booked. False if there were scheduling conflicts",
                     content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Booking.class)
+                            mediaType = MediaType.TEXT_PLAIN_VALUE,
+                            schema = @Schema(implementation = Boolean.class)
                     )),
             @ApiResponse(
                     responseCode = "400",
                     description = "Invalid booking request provided",
-                    content = @Content)
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = ApiErrors.class)
+                    ))
     })
     @PostMapping(
             path = "/bookings",
