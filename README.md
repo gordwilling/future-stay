@@ -8,6 +8,7 @@
 chmod u+x build/libs/FutureStay-0.0.1-SNAPSHOT.jar
 ./build/libs/FutureStay-0.0.1-SNAPSHOT.jar 
 ```
+The application will be accessible at `http://localhost:8080`
 
 ## Endpoints of Interest
 
