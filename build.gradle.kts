@@ -35,6 +35,12 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks {
+    bootJar {
+        launchScript()
+    }
+}
+
 openApi {
     apiDocsUrl.set("http://localhost:8080/api/v3/api-docs")
     outputDir.set(file("$buildDir/docs"))
