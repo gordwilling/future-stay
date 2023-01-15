@@ -77,7 +77,7 @@ class PropertyTest implements ValidationTest {
     }
 
     @Test
-    @DisplayName("The ZipCodeValidationPattern rejects 4-digit zip code")
+    @DisplayName("The ZipCodeValidationPattern rejects 9-digit zip code without a dash")
     void zipCodeValidationPatternRejects9DigitZipCodeWithoutDash() {
         var result = "123451234".matches(Property.ZipCodeValidationPattern);
         assertFalse(result);
