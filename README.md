@@ -1,6 +1,6 @@
 # Sample Spring Boot App
 
-## Running to Application
+## Running the Application
 
 ### Bash
 ```
