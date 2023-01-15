@@ -1,0 +1,16 @@
+POST http://localhost:8080/api/bookings
+Content-Type: application/json
+
+{
+  "property": {
+    "address" : "123 Fake Street",
+    "city" : "Imaginary Town",
+    "state" : "AK",
+    "zipCode" : "12345-1234"
+  },
+  "guest": {
+    "emailAddress" : "some.user@emailaddress.com"
+  },
+  "checkIn": "2099-05-05T12:00",
+  "checkOut": "2099-05-15T12:00"
+}
